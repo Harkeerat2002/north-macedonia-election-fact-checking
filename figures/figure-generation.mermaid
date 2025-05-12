@@ -1,0 +1,119 @@
+graph TD
+    A[Load Dataset] --> B[Extract Claims]
+    B --> C[Generate Questions]
+    C --> D[Retrieve Evidence via Google Search]
+    D --> E[Identify Stance of Evidence]
+    E --> F[Determine Verdict]
+    F --> G[Visualize Results]
+
+    %% Details for each step
+    B --> B1[Step 1: Extract Claims]
+    B1 --> B2[Uses LLM to extract up to 3 claims per text.]
+    B2 --> B3[Example: From "The economy grew by 5% last year," extract "The economy grew by 5%."]
+
+    C --> C1[Step 2: Generate Questions]
+    C1 --> C2[Uses LLM to generate 3 fact-checking questions per claim.]
+    C2 --> C3[Example: For "The economy grew by 5%," generate "What was the GDP growth last year?"]
+
+    D --> D1[Step 3: Retrieve Evidence via Google Search]
+    D1 --> D2[Uses Google API to retrieve top 3 search results for each question.]
+    D2 --> D3[Example: Search for "What was the GDP growth last year?" and retrieve snippets.]
+
+    E --> E1[Step 4: Identify Stance of Evidence]
+    E1 --> E2[Uses LLM to classify evidence as "Completely Supports," "Refute," etc.]
+    E2 --> E3[Example: Evidence like "The GDP grew by 5.1% last year" is classified as "Completely Supports."]
+
+    F --> F1[Step 5: Determine Verdict]
+    F1 --> F2[Aggregates stances to calculate a score and determine the final verdict.]
+    F2 --> F3[Example: If most evidence refutes the claim, the verdict is "Spreading Misinformation."]
+
+    G --> G1[Step 6: Visualize Results]
+    G1 --> G2[Visualizes stance counts and verdict distributions for each party.]
+    G2 --> G3[Example: Create bar plots comparing stances and verdicts across parties.]
+
+    %% Styling for processes
+    style B1 fill:#cce5ff,stroke:#333,stroke-width:2px
+    style C1 fill:#cce5ff,stroke:#333,stroke-width:2px
+    style D1 fill:#cce5ff,stroke:#333,stroke-width:2px
+    style E1 fill:#cce5ff,stroke:#333,stroke-width:2px
+    style F1 fill:#cce5ff,stroke:#333,stroke-width:2px
+    style G1 fill:#cce5ff,stroke:#333,stroke-width:2px
+
+
+    graph TD
+    A[Load Dataset] --> B[Extract Claims]
+    B --> C[Generate Questions]
+    C --> D[Retrieve Evidence via Google Search]
+    D --> E[Identify Stance of Evidence]
+    E --> F[Determine Verdict]
+    F --> G[Visualize Results]
+
+    %% Details for each step
+    B --> B1[Step 1: Extract Claims]
+    B1 --> B2[Uses LLM to extract up to 3 claims per text.]
+    B2 --> B3[Example: From "The economy grew by 5% last year," extract "The economy grew by 5%."]
+
+    C --> C1[Step 2: Generate Questions]
+    C1 --> C2[Uses LLM to generate 3 fact-checking questions per claim.]
+    C2 --> C3[Example: For "The economy grew by 5%," generate "What was the GDP growth last year?"]
+
+    D --> D1[Step 3: Retrieve Evidence via Google Search]
+    D1 --> D2[Uses Google API to retrieve top 3 search results for each question.]
+    D2 --> D3[Example: Search for "What was the GDP growth last year?" and retrieve snippets.]
+
+    E --> E1[Step 4: Identify Stance of Evidence]
+    E1 --> E2[Uses LLM to classify evidence as "Completely Supports," "Refute," etc.]
+    E2 --> E3[Example: Evidence like "The GDP grew by 5.1% last year" is classified as "Completely Supports."]
+
+    F --> F1[Step 5: Determine Verdict]
+    F1 --> F2[Aggregates stances to calculate a score and determine the final verdict.]
+    F2 --> F3[Example: If most evidence refutes the claim, the verdict is "Spreading Misinformation."]
+
+    G --> G1[Step 6: Visualize Results]
+    G1 --> G2[Visualizes stance counts and verdict distributions for each party.]
+    G2 --> G3[Example: Create bar plots comparing stances and verdicts across parties.]
+
+    %% Styling for processes
+    style B1 fill:#cce5ff,stroke:#333,stroke-width:2px
+    style C1 fill:#cce5ff,stroke:#333,stroke-width:2px
+    style D1 fill:#cce5ff,stroke:#333,stroke-width:2px
+    style E1 fill:#cce5ff,stroke:#333,stroke-width:2px
+    style F1 fill:#cce5ff,stroke:#333,stroke-width:2px
+    style G1 fill:#cce5ff,stroke:#333,stroke-width:2px
+
+    %% Styling for examples
+    style B3 fill:#d4edda,stroke:#333,stroke-width:2px
+    style C3 fill:#d4edda,stroke:#333,stroke-width:2px
+    style D3 fill:#d4edda,stroke:#333,stroke-width:2px
+    style E3 fill:#d4edda,stroke:#333,stroke-width:2px
+    style F3 fill:#d4edda,stroke:#333,stroke-width:2px
+    style G3 fill:#d4edda,stroke:#333,stroke-width:2px
+
+
+    graph TD
+    A[Example: Load Dataset] --> B[Example: Extract Claims]
+    B --> C[Example: Generate Questions]
+    C --> D[Example: Retrieve Evidence via Google Search]
+    D --> E[Example: Identify Stance of Evidence]
+    E --> F[Example: Determine Verdict]
+    F --> G[Example: Visualize Results]
+
+    %% Examples for each step
+    B --> B1[Example: Extract claim "The economy grew by 5% last year."]
+    C --> C1[Example: Generate questions like "What was the GDP growth last year?"]
+    D --> D1[Example: Search Google for "What was the GDP growth last year?"]
+    E --> E1[Example: Classify evidence as "Completely Supports."]
+    F --> F1[Example: Verdict: "Not Spreading Misinformation."]
+    G --> G1[Example: Bar plot showing verdict distribution for a party.]
+
+    %% Styling for examples
+    style B1 fill:#d4edda,stroke:#333,stroke-width:2px
+    style C1 fill:#d4edda,stroke:#333,stroke-width:2px
+    style D1 fill:#d4edda,stroke:#333,stroke-width:2px
+    style E1 fill:#d4edda,stroke:#333,stroke-width:2px
+    style F1 fill:#d4edda,stroke:#333,stroke-width:2px
+    style G1 fill:#d4edda,stroke:#333,stroke-width:2px
+
+    %% Styling for stages
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style G fill:#f9f,stroke:#333,stroke-width:2px
