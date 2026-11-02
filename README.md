@@ -1,63 +1,43 @@
-# North Macedonia Election Fact-Checking and Sentiment Analysis Project
-*EPFL Law and Computation I & II Project*
+# 🗳️ North Macedonia 2024 Election: Fact-Checking & Sentiment Analysis
 
-This project aims to analyze and visualize sentiment and claims from social media posts related to the 2024 North Macedonian elections. It involves data preprocessing, sentiment analysis, and fact-checking pipelines, supported by visualizations to provide insights into the political discourse.
+*EPFL SHS team project (Law and Computation I & II), Sep 2024 – May 2025*
 
----
+An end-to-end pipeline that analyses **1,000+ political ads** (Macedonian / Albanian) from the **Meta Ad Library** for five
+major parties in the 2024 North Macedonian elections: it **extracts factual claims, retrieves evidence from the web and
+reaches a verdict** with a local LLM, and tracks the **sentiment** of each party's messaging over time.
 
-## Project Structure
+<p align="center">
+  <img src="figures/Fact-Checking-Pipeline.png" width="85%" alt="Fact-checking pipeline"/>
+</p>
 
-### 1. Data Preprocessing Pipeline (`data-preprocessing-pipeline.ipynb`)
-This notebook prepares the raw datasets for analysis. It performs the following steps:
+## ✨ Highlights
+- **Multi-stage LLM fact-checking** with **Llama3** (run locally via Ollama): claim extraction → question generation →
+  evidence retrieval with the **Google Custom Search API** → stance classification (*Supports / Refutes / Neutral*) →
+  aggregated verdict (*True / False / Unverified*).
+- **85%+ verdict accuracy**, checked manually by the team on a sample of claims.
+- **Sentiment analysis** of 800+ posts with **VADER** after machine translation, with per-party and temporal breakdowns.
+- Visualisations of sentiment trends, stance counts and verdict distributions (Matplotlib / Seaborn).
 
-1. **Load Raw Data**: Reads CSV files containing social media posts for various political parties.
-2. **Extract Relevant Columns**: Focuses on columns like `ad_archive_id`, `ad_creative_bodies`, and other metadata.
-3. **Clean Data**: Removes rows with missing or invalid `ad_creative_bodies`.
-4. **Save Processed Data**: Outputs cleaned CSV files for each party in the `dataset/ad-creative-bodies-extraction/` folder.
+## 🧭 Pipeline
+| Step | Notebook / script | What it does |
+|---|---|---|
+| 1. Preprocessing | `data-preprocessing-pipeline.ipynb` | Loads the Meta Ad Library exports, keeps the ad texts, removes empty/invalid rows |
+| 2. Sentiment | `sentiment-analysis-pipeline.ipynb`, `process_sentiment_all.py` | Translates posts to English and scores them with VADER |
+| 3. Fact-checking | `fact-checking-pipeline.ipynb` | Llama3 claim extraction → questions → Google Search evidence → stance → verdict |
+| 4. Exploration | `dataset-visualization-pipeline.ipynb` | Exploratory analysis of the raw datasets |
 
-#### Example Output:
-- `DUI_ad_creative_bodies.csv`
-- `VMRO-DPMNE_ad_creative_bodies.csv`
+Intermediate and final results are in `dataset/` (claims, questions, evidence and final verdicts per party).
 
----
+## 🚀 Running it
+```bash
+python -m venv venv && source venv/bin/activate
+pip install pandas tqdm requests vaderSentiment googletrans==4.0.0rc1 matplotlib seaborn python-dotenv
+cp .env.example .env          # add your Google Custom Search API key
+ollama pull llama3            # the fact-checking notebook calls Llama3 on localhost:11434
+```
+Then run the notebooks in the order above.
 
-### 2. Sentiment Analysis Pipeline (`sentiment-analysis-pipeline.ipynb`)
-This notebook performs sentiment analysis on the processed datasets. It includes:
-
-1. **Load Processed Data**: Reads the cleaned CSV files for each party.
-2. **Translate Text**: Uses Google Translate to convert non-English text to English.
-3. **Sentiment Analysis**: Applies the VADER sentiment analyzer to classify posts as `positive`, `neutral`, or `negative`.
-4. **Visualize Sentiment Distribution**: Generates bar plots showing the sentiment distribution for each party.
-
-#### Example Visualizations:
-- **Sentiment Distribution for DUI**:
-  ![DUI Sentiment](figures/dui.png)
-  - This figure shows the proportion of positive, neutral, and negative posts for DUI.
-
-- **Sentiment Distribution for VMRO-DPMNE**:
-  ![VMRO Sentiment](figures/vrmosentiment.png)
-  - This figure highlights the sentiment breakdown for VMRO-DPMNE posts.
-
----
-
-### 3. Fact-Checking Pipeline (`fact-checking-pipeline.ipynb`)
-This notebook extracts claims from social media posts and evaluates their validity. Steps include:
-
-1. **Extract Claims**: Uses a language model to identify up to three claims per post.
-2. **Generate Questions**: Creates fact-checking questions for each claim.
-3. **Retrieve Evidence**: Uses Google Search API to fetch evidence for the questions.
-4. **Classify Evidence**: Categorizes evidence as `Supports`, `Refutes`, or `Neutral`.
-5. **Determine Verdict**: Aggregates evidence to decide whether a claim is `True`, `False`, or `Unverified`.
-
-#### Example Visualization:
-- **Fact-Checking Workflow**:
-  ![Fact Checking Pipeline](figures/Detailed-Process-Breakdown-of-Fact-Check.png)
-    - This diagram illustrates the step-by-step process of the fact-checking pipeline.
-### 4. Dataset Visualization Pipeline (dataset-visualization-pipeline.ipynb)
-This notebook provides exploratory data analysis (EDA) on the raw datasets. Key steps:
-1. **Visualize Column Names:** Displays all column names in the dataset.
-2. Preview Data: Shows the first few rows of each dataset.
-3. Generate Summary Statistics: Provides insights into the distribution of key variables.
-
-## Conclusion
-This project provides a comprehensive framework for analyzing political discourse during the 2024 North Macedonian elections. By combining sentiment analysis, fact-checking, and visualizations, it offers valuable insights into the sentiment and credibility of social media posts.
+## 📊 Example output
+<p align="center">
+  <img src="figures/Illustrative-Example-of-Fact-Checking.png" width="85%" alt="Example of a fact-check"/>
+</p>
